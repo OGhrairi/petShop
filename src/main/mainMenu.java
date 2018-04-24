@@ -1,6 +1,8 @@
 package main;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class mainMenu {
     private JButton addMultAnimal;
@@ -12,6 +14,28 @@ public class mainMenu {
 
     public mainMenu(){
 
+        addSingAnimal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                animalEntry dialog = new animalEntry();
+                dialog.pack();
+                dialog.setVisible(true);
+            }
+        });
+        computeRev.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"test message");
+            }
+        });
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                animalSearcher searcher = new animalSearcher();
+                searcher.pack();
+                searcher.setVisible(true);
+            }
+        });
     }
     public static void main(String[] args){
         JFrame frame = new JFrame("mainMenu");
