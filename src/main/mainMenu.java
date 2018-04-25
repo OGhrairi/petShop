@@ -3,6 +3,8 @@ package main;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class mainMenu {
     private JButton addMultAnimal;
@@ -11,7 +13,9 @@ public class mainMenu {
     private JButton computeRev;
     private JButton writeAnimals;
     private JPanel mainPanel;
-
+    static ArrayList<animal> animalList = new ArrayList<animal>();
+    static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    static SimpleDateFormat mf = new SimpleDateFormat("MM");
     public mainMenu(){
 
         addSingAnimal.addActionListener(new ActionListener() {

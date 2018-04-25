@@ -1,25 +1,32 @@
 package main;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.event.*;
 
-public class animalEntry extends JDialog {
+public class revenueOutputForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField textField1;
+    private JTabbedPane revTabs;
+    private JPanel dailyRev;
+    private JFormattedTextField dayTextField = new JFormattedTextField(mainMenu.df);
+    private JButton daySubmit;
+    private JLabel dayResult;
+    private JPanel monthlyRev;
+    private JFormattedTextField monthTextField = new JFormattedTextField(mainMenu.mf);
+    private JButton monthSubmit;
+    private JLabel monthResult;
 
-    public animalEntry() {
+    public revenueOutputForm() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
-
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
@@ -41,10 +48,8 @@ public class animalEntry extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
-
     private void onOK() {
-        mainMenu.animalList.add(new animal (textField1.getText()));
-        //test that objects are being added: System.out.println(mainMenu.animalList.get(0).givenName);
+        // add your code here
         dispose();
     }
 
@@ -54,6 +59,9 @@ public class animalEntry extends JDialog {
     }
 
     public static void main(String[] args) {
-
+        revenueOutputForm dialog = new revenueOutputForm();
+        dialog.pack();
+        dialog.setVisible(true);
+        System.exit(0);
     }
 }

@@ -11,8 +11,11 @@ public class animal {
     String sellingDate;
     String[] parList;
     boolean sold;
-    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+   // static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    static int animalCount = 0;
+
     public animal(String parameters){
+        animalCount += 1;
         parList = parameters.split(", ");
         givenName = parList[0];
         commonName = parList[1];
@@ -23,7 +26,7 @@ public class animal {
             arrivalDate = parList[5];
         }else{
             Date date = new Date();
-            arrivalDate = df.format(date);
+            arrivalDate = mainMenu.df.format(date);
         }
         if(parList.length ==7){
             sellingDate = parList[6];
@@ -35,7 +38,7 @@ public class animal {
     public void sellAnimal(Date sellDate){
         if(sold = false){
             sold = true;
-            sellingDate = df.format(sellDate);
+            sellingDate = mainMenu.df.format(sellDate);
         }
     }
 }
