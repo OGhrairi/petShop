@@ -1,7 +1,7 @@
 package main;
 import java.util.*;
 import java.text.SimpleDateFormat;
-public class animal {
+abstract class animal {
     String givenName;
     String commonName;
     String price;
@@ -12,11 +12,14 @@ public class animal {
     String[] parList;
     boolean sold;
    // static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    static int animalCount = 0;
 
     public animal(String parameters){
-        animalCount += 1;
-        parList = parameters.split(", ");
+        parseInfo(parameters);
+    }
+
+
+    private void parseInfo(String param){
+        parList = param.split(", ");
         givenName = parList[0];
         commonName = parList[1];
         price = "£"+parList[2];
@@ -26,7 +29,7 @@ public class animal {
             arrivalDate = parList[5];
         }else{
             Date date = new Date();
-            arrivalDate = mainMenu.df.format(date);
+            //arrivalDate = mainMenu.df.format(date);
         }
         if(parList.length ==7){
             sellingDate = parList[6];
@@ -35,10 +38,5 @@ public class animal {
             sold = false;
         }else sold = true;
     }
-    public void sellAnimal(Date sellDate){
-        if(sold = false){
-            sold = true;
-            sellingDate = mainMenu.df.format(sellDate);
-        }
-    }
+
 }
