@@ -34,7 +34,7 @@ public class menu {
     private JTextField fileNameEntry;
     private JTextField givenNameSearch;
     private JRadioButton searchMale;
-    private JTextField textField4;
+    private JTextField searchResults;
     private JComboBox searchClass;
     private JComboBox searchOrder;
     private JComboBox searchGenus;
@@ -48,6 +48,13 @@ public class menu {
     private JRadioButton talkYes;
     private JRadioButton talkNo;
     private JTextField searchColour;
+    private JList list1;
+    private JTextField dayRevEntry;
+    private JButton dailyRevSubmit;
+    private JTextField monthRevEntry;
+    private JButton monthRevSubmit;
+    private JLabel dayRevResult;
+    private JLabel monthRevResult;
     FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
     public menu() {
         JFileChooser fc = new JFileChooser();

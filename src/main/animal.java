@@ -4,6 +4,12 @@ import java.text.SimpleDateFormat;
 abstract class animal {
     String givenName;
     String commonName;
+    String aClass;
+    String order;
+    String family;
+    String genus;
+    String species;
+    int legCount;
     String price;
     String sex;
     String colour;
@@ -40,3 +46,5 @@ abstract class animal {
     }
 
 }
+
+
