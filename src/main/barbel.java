@@ -1,9 +1,9 @@
 package main;
 
-public class barbell extends actinopterygiiClass {
-    public barbell(String parameters){
+public class barbel extends actinopterygiiClass {
+    public barbel(String parameters){
         super(parameters);
-        commonName = "Common Barbell";
+        commonName = "Common Barbel";
         order = "Cypriniformes";
         family = "Cyprinidae";
         genus = "Barbus";

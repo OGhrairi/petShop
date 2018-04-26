@@ -17,7 +17,7 @@ abstract class animal {
     String sellingDate;
     String[] parList;
     boolean sold;
-   // static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    int animalID;
 
     public animal(String parameters){
         parseInfo(parameters);

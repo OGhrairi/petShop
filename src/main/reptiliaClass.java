@@ -1,6 +1,6 @@
 package main;
 
-abstract class reptiliaClass extends animal {
+public abstract class reptiliaClass extends animal {
     Boolean venomous;
 
     public reptiliaClass(String parameters) {

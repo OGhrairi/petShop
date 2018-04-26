@@ -37,7 +37,7 @@
                   <text value="Given Name"/>
                 </properties>
               </component>
-              <component id="b2441" class="javax.swing.JTextField" binding="givenName">
+              <component id="b2441" class="javax.swing.JTextField" binding="singleAddGivenName">
                 <constraints>
                   <grid row="1" column="0" row-span="2" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="104" height="24"/>
@@ -57,7 +57,7 @@
                   <text value="Common Name"/>
                 </properties>
               </component>
-              <component id="839ba" class="javax.swing.JComboBox" binding="cNameSelector">
+              <component id="839ba" class="javax.swing.JComboBox" binding="singleAddCommonName">
                 <constraints>
                   <grid row="1" column="3" row-span="2" col-span="3" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="80" height="-1"/>
@@ -89,7 +89,7 @@
                   <text value="Sex"/>
                 </properties>
               </component>
-              <component id="e6cf0" class="javax.swing.JRadioButton" binding="maleRadioButton" default-binding="true">
+              <component id="e6cf0" class="javax.swing.JRadioButton" binding="singleAddMale">
                 <constraints>
                   <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -109,7 +109,7 @@
                   <text value="Main Colour"/>
                 </properties>
               </component>
-              <component id="880a5" class="javax.swing.JTextField" binding="colour">
+              <component id="880a5" class="javax.swing.JTextField" binding="singleAddColour">
                 <constraints>
                   <grid row="1" column="8" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="80" height="-1"/>
@@ -117,7 +117,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="d9801" class="javax.swing.JRadioButton" binding="femaleRadioButton" default-binding="true">
+              <component id="d9801" class="javax.swing.JRadioButton" binding="singleAddFemale">
                 <constraints>
                   <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="70" height="15"/>
@@ -127,7 +127,7 @@
                   <text value="Female"/>
                 </properties>
               </component>
-              <component id="2ff89" class="javax.swing.JTextField" binding="arrDay">
+              <component id="2ff89" class="javax.swing.JTextField" binding="singleAddArrDay">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="2" use-parent-layout="false">
                     <preferred-size width="20" height="-1"/>
@@ -135,7 +135,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="14e2d" class="javax.swing.JTextField" binding="arrMonth">
+              <component id="14e2d" class="javax.swing.JTextField" binding="singleAddArrMonth">
                 <constraints>
                   <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="20" height="-1"/>
@@ -143,7 +143,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="87587" class="javax.swing.JTextField" binding="arrYear">
+              <component id="87587" class="javax.swing.JTextField" binding="singleAddArrYear">
                 <constraints>
                   <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="35" height="-1"/>
@@ -171,7 +171,7 @@
                   <text value="Selling Date"/>
                 </properties>
               </component>
-              <component id="af6b2" class="javax.swing.JTextField" binding="sellDay">
+              <component id="af6b2" class="javax.swing.JTextField" binding="singleAddSellDay">
                 <constraints>
                   <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="20" height="-1"/>
@@ -179,7 +179,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="58ea2" class="javax.swing.JTextField" binding="sellMonth">
+              <component id="58ea2" class="javax.swing.JTextField" binding="singleAddSellMonth">
                 <constraints>
                   <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="20" height="-1"/>
@@ -187,7 +187,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="86406" class="javax.swing.JTextField" binding="sellYear">
+              <component id="86406" class="javax.swing.JTextField" binding="singleAddSellYear">
                 <constraints>
                   <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="35" height="-1"/>
@@ -195,7 +195,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="b6820" class="javax.swing.JTextField" binding="price">
+              <component id="b6820" class="javax.swing.JTextField" binding="singleAddPrice">
                 <constraints>
                   <grid row="1" column="6" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="50" height="24"/>

@@ -8,21 +8,24 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 
-public class menu {
+public class menu {String[] commonNameList = {"Dog", "Cat", "Rabbit", "Golden Hamster",
+        "Roborobski Hamster", "Guinea Pig", "Edward's Fig parrot",
+        "Norwegian Blue", "Hyacinth Macaw", "Yellow Canary", "Goldfish",
+        "Koi", "Common Barbel", "Boa Constrictor", "Corn Snake","Black-necked Spitting Cobra"};
     private JTabbedPane tabs;
     private JPanel panel1;
-    private JTextField givenName;
-    private JComboBox cNameSelector;
-    private JTextField price;
-    private JRadioButton maleRadioButton;
-    private JTextField colour;
-    private JRadioButton femaleRadioButton;
-    private JTextField arrDay;
-    private JTextField arrMonth;
-    private JTextField arrYear;
-    private JTextField sellDay;
-    private JTextField sellMonth;
-    private JTextField sellYear;
+    private JTextField singleAddGivenName;
+    private JComboBox singleAddCommonName = new JComboBox(commonNameList);
+    private JTextField singleAddPrice;
+    private JRadioButton singleAddMale;
+    private JTextField singleAddColour;
+    private JRadioButton singleAddFemale;
+    private JTextField singleAddArrDay;
+    private JTextField singleAddArrMonth;
+    private JTextField singleAddArrYear;
+    private JTextField singleAddSellDay;
+    private JTextField singleAddSellMonth;
+    private JTextField singleAddSellYear;
     private JButton singleAddSubmit;
     private JButton FileBrowse;
     private JButton submitButton;
@@ -55,8 +58,10 @@ public class menu {
     private JButton monthRevSubmit;
     private JLabel dayRevResult;
     private JLabel monthRevResult;
+
     FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
     public menu() {
+
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(filter);
         FileBrowse.addActionListener(new ActionListener() {
@@ -68,6 +73,14 @@ public class menu {
                 }
             }
         });
+        singleAddSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              //  String[] parameters = new String[];
+                //parameters[0] = singleAddGivenName.getText();
+               // parameters[1] = singleAddCommonName.getSelectedItem();
+            }
+        });
     }
 
     public static void main(String[] args){
@@ -76,5 +89,6 @@ public class menu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        shop petShop = new shop();
     }
 }

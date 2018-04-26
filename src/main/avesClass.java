@@ -1,6 +1,6 @@
 package main;
 
-public class avesClass extends animal {
+public abstract class avesClass extends animal {
     public avesClass(String parameters){
         super(parameters);
         aClass = "Aves";

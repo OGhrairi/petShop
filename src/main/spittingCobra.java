@@ -3,7 +3,7 @@ package main;
 public class spittingCobra extends reptiliaClass {
     public spittingCobra(String parameters){
         super(parameters);
-        commonName = "Black-Necked Spitting Cobra";
+        commonName = "Black-necked Spitting Cobra";
         order = "Squamata";
         family = "Elapidae";
         genus = "Naja";
