@@ -1,7 +1,7 @@
 package main;
 
 public class hyacinthMacaw extends parrotClass {
-    public hyacinthMacaw(String parameters){
+    public hyacinthMacaw(String[] parameters){
         super(parameters);
         commonName = "Hyacinth Macaw";
         order = "Psittaciformes";

@@ -1,7 +1,7 @@
 package main;
 
 public class norwegianBlue extends parrotClass {
-    public norwegianBlue(String parameters){
+    public norwegianBlue(String[] parameters){
         super(parameters);
         commonName = "Norwegian Blue";
         order = "Psittaciformes";

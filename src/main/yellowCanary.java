@@ -1,7 +1,7 @@
 package main;
 
 public class yellowCanary extends avesClass {
-    public yellowCanary(String parameters){
+    public yellowCanary(String[] parameters){
         super(parameters);
         commonName = "Yellow Canary";
         order = "Passeriformes";

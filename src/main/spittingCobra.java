@@ -1,7 +1,7 @@
 package main;
 
 public class spittingCobra extends reptiliaClass {
-    public spittingCobra(String parameters){
+    public spittingCobra(String[] parameters){
         super(parameters);
         commonName = "Black-necked Spitting Cobra";
         order = "Squamata";

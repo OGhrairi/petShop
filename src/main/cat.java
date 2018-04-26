@@ -1,7 +1,7 @@
 package main;
 
 public class cat extends mammaliaClass {
-    public cat(String parameters){
+    public cat(String[] parameters){
         super(parameters);
         commonName = "Cat";
         order = "Carnivora";

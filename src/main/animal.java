@@ -1,4 +1,5 @@
 package main;
+import java.text.DateFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
 abstract class animal {
@@ -17,32 +18,25 @@ abstract class animal {
     String sellingDate;
     String[] parList;
     boolean sold;
-    int animalID;
+    DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 
-    public animal(String parameters){
+    public animal (String[] parameters){
         parseInfo(parameters);
     }
 
+    //string/array inputs are of form [givenName, commonName, price, sex, colour, arrivalDate, sellingDate]
+    private void parseInfo(String[] parList){
 
-    private void parseInfo(String param){
-        parList = param.split(", ");
         givenName = parList[0];
         commonName = parList[1];
         price = "£"+parList[2];
         sex = parList[3];
         colour = parList[4];
-        if(parList.length >=6) {
-            arrivalDate = parList[5];
-        }else{
-            Date date = new Date();
-            //arrivalDate = mainMenu.df.format(date);
-        }
-        if(parList.length ==7){
+        arrivalDate = parList[5];
+        if (parList[6] != null){
             sellingDate = parList[6];
-        }
-        if (sellingDate == null){
-            sold = false;
-        }else sold = true;
+            sold = true;
+        }else sold = false;
     }
 
 }

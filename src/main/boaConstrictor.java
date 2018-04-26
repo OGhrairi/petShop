@@ -1,7 +1,7 @@
 package main;
 
 public class boaConstrictor extends reptiliaClass {
-    public boaConstrictor(String paramaters){
+    public boaConstrictor(String[] paramaters){
         super(paramaters);
         commonName = "Boa Constrictor";
         order = "Squamata";

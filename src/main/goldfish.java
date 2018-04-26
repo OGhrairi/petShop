@@ -1,7 +1,7 @@
 package main;
 
 public class goldfish extends actinopterygiiClass {
-    public goldfish(String parameters){
+    public goldfish(String[] parameters){
         super(parameters);
         commonName = "Goldfish";
         order = "Cypriniformes";

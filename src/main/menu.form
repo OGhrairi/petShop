@@ -17,7 +17,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="b06dc" layout-manager="GridLayoutManager" row-count="5" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="b06dc" layout-manager="GridLayoutManager" row-count="6" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Add Animal"/>
@@ -27,7 +27,7 @@
             <children>
               <component id="49eaf" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="104" height="20"/>
                   </grid>
                 </constraints>
@@ -39,7 +39,7 @@
               </component>
               <component id="b2441" class="javax.swing.JTextField" binding="singleAddGivenName">
                 <constraints>
-                  <grid row="1" column="0" row-span="2" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="1" column="0" row-span="2" col-span="3" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="104" height="24"/>
                   </grid>
                 </constraints>
@@ -47,7 +47,7 @@
               </component>
               <component id="f4293" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="0" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="86" height="20"/>
                   </grid>
                 </constraints>
@@ -59,15 +59,34 @@
               </component>
               <component id="839ba" class="javax.swing.JComboBox" binding="singleAddCommonName">
                 <constraints>
-                  <grid row="1" column="3" row-span="2" col-span="3" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="1" column="3" row-span="2" col-span="3" vsize-policy="0" hsize-policy="2" anchor="1" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="80" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <model>
+                    <item value="Dog"/>
+                    <item value="Cat"/>
+                    <item value="Rabbit"/>
+                    <item value="Golden Hamster"/>
+                    <item value="Roborobski Hamster"/>
+                    <item value="Guinea Pig"/>
+                    <item value="Edward's Fig parrot"/>
+                    <item value="Norwegian Blue"/>
+                    <item value="Hyacinth Macaw"/>
+                    <item value="Yellow Canary"/>
+                    <item value="Goldfish"/>
+                    <item value="Koi"/>
+                    <item value="Common Barbel"/>
+                    <item value="Boa Constrictor"/>
+                    <item value="Corn Snake"/>
+                    <item value="Black-necked Spitting Cobra"/>
+                  </model>
+                </properties>
               </component>
               <component id="2b453" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="50" height="20"/>
                   </grid>
                 </constraints>
@@ -79,7 +98,7 @@
               </component>
               <component id="fa6cd" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="20" height="20"/>
                   </grid>
                 </constraints>
@@ -99,7 +118,7 @@
               </component>
               <component id="82343" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="66" height="20"/>
                   </grid>
                 </constraints>
@@ -111,7 +130,7 @@
               </component>
               <component id="880a5" class="javax.swing.JTextField" binding="singleAddColour">
                 <constraints>
-                  <grid row="1" column="8" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="1" column="8" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="1" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="80" height="-1"/>
                   </grid>
                 </constraints>
@@ -129,23 +148,7 @@
               </component>
               <component id="2ff89" class="javax.swing.JTextField" binding="singleAddArrDay">
                 <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="2" use-parent-layout="false">
-                    <preferred-size width="20" height="-1"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
-              <component id="14e2d" class="javax.swing.JTextField" binding="singleAddArrMonth">
-                <constraints>
-                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="20" height="-1"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
-              <component id="87587" class="javax.swing.JTextField" binding="singleAddArrYear">
-                <constraints>
-                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="2" use-parent-layout="false">
                     <preferred-size width="35" height="-1"/>
                   </grid>
                 </constraints>
@@ -153,7 +156,7 @@
               </component>
               <component id="dd497" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="104" height="16"/>
                   </grid>
                 </constraints>
@@ -165,39 +168,23 @@
               </component>
               <component id="a6a59" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="3" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Selling Date"/>
                 </properties>
               </component>
-              <component id="af6b2" class="javax.swing.JTextField" binding="singleAddSellDay">
-                <constraints>
-                  <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="20" height="-1"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
               <component id="58ea2" class="javax.swing.JTextField" binding="singleAddSellMonth">
                 <constraints>
-                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="20" height="-1"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
-              <component id="86406" class="javax.swing.JTextField" binding="singleAddSellYear">
-                <constraints>
-                  <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="35" height="-1"/>
                   </grid>
                 </constraints>
                 <properties/>
               </component>
               <component id="b6820" class="javax.swing.JTextField" binding="singleAddPrice">
                 <constraints>
-                  <grid row="1" column="6" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="1" column="6" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="1" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="50" height="24"/>
                   </grid>
                 </constraints>
@@ -205,11 +192,91 @@
               </component>
               <component id="5857c" class="javax.swing.JButton" binding="singleAddSubmit">
                 <constraints>
-                  <grid row="3" column="7" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="7" row-span="3" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Submit"/>
                 </properties>
+              </component>
+              <component id="e3b3" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="YYYY"/>
+                </properties>
+              </component>
+              <component id="14e2d" class="javax.swing.JTextField" binding="singleAddArrMonth">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="20" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="af6b2" class="javax.swing.JTextField" binding="singleAddSellDay">
+                <constraints>
+                  <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="35" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="86406" class="javax.swing.JTextField" binding="singleAddSellYear">
+                <constraints>
+                  <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="20" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="9cfb9" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="MM"/>
+                </properties>
+              </component>
+              <component id="dd5a8" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="DD"/>
+                </properties>
+              </component>
+              <component id="cd750" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="YYYY"/>
+                </properties>
+              </component>
+              <component id="3950a" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="MM"/>
+                </properties>
+              </component>
+              <component id="c4a63" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="DD"/>
+                </properties>
+              </component>
+              <component id="87587" class="javax.swing.JTextField" binding="singleAddArrYear">
+                <constraints>
+                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="20" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
               </component>
             </children>
           </grid>

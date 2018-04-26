@@ -1,7 +1,7 @@
 package main;
 
 public class roborvskiHamster extends mammaliaClass {
-    public roborvskiHamster(String parameters){
+    public roborvskiHamster(String[] parameters){
         super(parameters);
         commonName = "Roborovski Hamster";
         order = "Rodentia";

@@ -9,9 +9,9 @@ public class shop {
     public shop(){
 
     }
-    void addAnimal(String parameters){
-        String animalType = parameters.split(", ")[0];
-        switch (animalType) {
+    void addAnimal(String[] parameters){
+        String animalType = parameters[0];
+        switch (animalType) {//TODO split each case into creating object and then adding to list
             case "Dog": animalList.add(new dog(parameters));
                 break;
             case "Cat": animalList.add(new cat(parameters));
@@ -45,9 +45,13 @@ public class shop {
             case "Black-necked Spitting Cobra": animalList.add(new spittingCobra(parameters));
                 break;
         }
-
+        System.out.println(animalList.size());
+    }
+    private String[] splitter(String parameterString) {
+        return parameterString.split(", ");
     }
 }
+
 
 
 

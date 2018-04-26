@@ -6,16 +6,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
-public class menu {String[] commonNameList = {"Dog", "Cat", "Rabbit", "Golden Hamster",
-        "Roborobski Hamster", "Guinea Pig", "Edward's Fig parrot",
-        "Norwegian Blue", "Hyacinth Macaw", "Yellow Canary", "Goldfish",
-        "Koi", "Common Barbel", "Boa Constrictor", "Corn Snake","Black-necked Spitting Cobra"};
+public class menu {
     private JTabbedPane tabs;
     private JPanel panel1;
     private JTextField singleAddGivenName;
-    private JComboBox singleAddCommonName = new JComboBox(commonNameList);
+    private JComboBox singleAddCommonName;
     private JTextField singleAddPrice;
     private JRadioButton singleAddMale;
     private JTextField singleAddColour;
@@ -58,10 +58,11 @@ public class menu {String[] commonNameList = {"Dog", "Cat", "Rabbit", "Golden Ha
     private JButton monthRevSubmit;
     private JLabel dayRevResult;
     private JLabel monthRevResult;
-
+    DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+    Date date = new Date();
     FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
     public menu() {
-
+        shop petShop = new shop();
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(filter);
         FileBrowse.addActionListener(new ActionListener() {
@@ -76,19 +77,37 @@ public class menu {String[] commonNameList = {"Dog", "Cat", "Rabbit", "Golden Ha
         singleAddSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              //  String[] parameters = new String[];
-                //parameters[0] = singleAddGivenName.getText();
-               // parameters[1] = singleAddCommonName.getSelectedItem();
+                String[] parameters = new String[7];
+                parameters[0] = singleAddGivenName.getText();
+                parameters[1] = singleAddCommonName.getSelectedItem().toString();
+                parameters[2] = singleAddPrice.getText();
+                if(singleAddMale.isSelected() == true){
+                    parameters[3] = "Male";
+                }else parameters[3] = "Female";
+                parameters[4] = singleAddColour.getText();
+                if (singleAddArrDay.getText() != null){
+                parameters[5] = singleAddArrYear.getText() + "-" + singleAddArrMonth.getText() + "-" +
+                        singleAddArrDay.getText();
+                }else{
+                    parameters[5] = df.format(date);
+                }
+                if(singleAddSellDay.getText() != null) {
+                    parameters[6] = singleAddSellYear.getText() + "-" + singleAddSellMonth.getText() + "-" +
+                            singleAddSellDay.getText();
+                }else{
+                    parameters[6] = null;
+                }
+                petShop.addAnimal(parameters);
             }
         });
     }
-
+    //string/array inputs are of form [givenName, commonName, price, sex, colour, arrivalDate, sellingDate]
     public static void main(String[] args){
         JFrame frame = new JFrame();
         frame.setContentPane(new menu().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.pack();
         frame.setVisible(true);
-        shop petShop = new shop();
     }
 }

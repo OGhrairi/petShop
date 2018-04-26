@@ -1,7 +1,7 @@
 package main;
 
 public class goldenHamster extends mammaliaClass{
-    public goldenHamster(String parameters){
+    public goldenHamster(String[] parameters){
         super(parameters);
         commonName = "Golden Hamster";
         order = "Rodentia";

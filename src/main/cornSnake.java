@@ -1,7 +1,7 @@
 package main;
 
 public class cornSnake extends reptiliaClass {
-    public cornSnake(String parameters){
+    public cornSnake(String[] parameters){
         super(parameters);
         order = "Squamata";
         family = "Colubridae";
