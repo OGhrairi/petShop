@@ -61,8 +61,9 @@ public class menu {
     DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
     Date date = new Date();
     FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
+    String[] parameters = new String[7];
+    shop petShop = new shop();
     public menu() {
-        shop petShop = new shop();
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(filter);
         FileBrowse.addActionListener(new ActionListener() {
@@ -77,7 +78,6 @@ public class menu {
         singleAddSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] parameters = new String[7];
                 parameters[0] = singleAddGivenName.getText();
                 parameters[1] = singleAddCommonName.getSelectedItem().toString();
                 parameters[2] = singleAddPrice.getText();
@@ -98,6 +98,7 @@ public class menu {
                     parameters[6] = null;
                 }
                 petShop.addAnimal(parameters);
+                popup("Success");
             }
         });
     }
@@ -106,8 +107,19 @@ public class menu {
         JFrame frame = new JFrame();
         frame.setContentPane(new menu().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         frame.pack();
         frame.setVisible(true);
+    }
+    public void popup(String value){//creates popup dialog where the value arg is the message to be displayed
+        JOptionPane.showMessageDialog(null, value);
+    }
+
+    public void listUpdater(){
+        animalList.removeAll();
+        String[] lOut = new String[(petShop.animalCount)];
+        for(int i=0; i< petShop.animalList.size();i++){
+            lOut[i] = petShop.animalList.get(i).getGivenName() + " - " + petShop.animalList.get(i).getCommonName();
+
+        }animalList.setListData(lOut);
     }
 }

@@ -16,7 +16,7 @@ abstract class animal {
     String colour;
     String arrivalDate;
     String sellingDate;
-    String[] parList;
+    //String[] parList;
     boolean sold;
     DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 
@@ -39,6 +39,57 @@ abstract class animal {
         }else sold = false;
     }
 
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public String getCommonName() {
+        return commonName;
+    }
+
+    public String getAClass() {
+        return aClass;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public String getGenus() {
+        return genus;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public int getLegCount() {
+        return legCount;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public String getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public String getSellingDate() {
+        return sellingDate;
+    }
 }
 
 

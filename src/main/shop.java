@@ -3,15 +3,16 @@ package main;
 import java.util.ArrayList;
 
 public class shop {
-    ArrayList<animal> animalList = new ArrayList<animal>();
-    int animalCount;
+    ArrayList<animal> animalList = new ArrayList<>();
+    int animalCount = 0;
 
     public shop(){
 
     }
     void addAnimal(String[] parameters){
-        String animalType = parameters[0];
-        switch (animalType) {//TODO split each case into creating object and then adding to list
+        String animalType = parameters[1];
+        animalCount += 1;
+        switch (animalType) {
             case "Dog": animalList.add(new dog(parameters));
                 break;
             case "Cat": animalList.add(new cat(parameters));
@@ -44,8 +45,13 @@ public class shop {
                 break;
             case "Black-necked Spitting Cobra": animalList.add(new spittingCobra(parameters));
                 break;
-        }
-        System.out.println(animalList.size());
+
+
+        }    //string/array inputs are of form [givenName, commonName, price, sex, colour, arrivalDate, sellingDate]
+
+        System.out.println(animalList.get(0).getGivenName() + ", " + animalList.get(0).getCommonName() + ", " +
+                animalList.get(0).getPrice() + ", " + animalList.get(0).getSex() + ", " + animalList.get(0).getColour()
+                + ", " + animalList.get(0).getArrivalDate() + ", " + animalList.get(0).getSellingDate());
     }
     private String[] splitter(String parameterString) {
         return parameterString.split(", ");
