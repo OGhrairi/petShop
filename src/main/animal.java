@@ -16,7 +16,7 @@ abstract class animal {
     String colour;
     String arrivalDate;
     String sellingDate;
-    //String[] parList;
+    int animalID;
     boolean sold;
     DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 
@@ -36,7 +36,10 @@ abstract class animal {
         if (parList[6] != null){
             sellingDate = parList[6];
             sold = true;
-        }else sold = false;
+        }else{
+            sold = false;
+        }
+        animalID = Integer.parseInt(parList[7]);
     }
 
     public String getGivenName() {
@@ -89,6 +92,9 @@ abstract class animal {
 
     public String getSellingDate() {
         return sellingDate;
+    }
+    public int getAnimalID() {
+        return animalID;
     }
 }
 

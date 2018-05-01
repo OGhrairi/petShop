@@ -9,6 +9,8 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 
 public class menu {
@@ -20,16 +22,11 @@ public class menu {
     private JRadioButton singleAddMale;
     private JTextField singleAddColour;
     private JRadioButton singleAddFemale;
-    private JTextField singleAddArrDay;
-    private JTextField singleAddArrMonth;
-    private JTextField singleAddArrYear;
-    private JTextField singleAddSellDay;
-    private JTextField singleAddSellMonth;
-    private JTextField singleAddSellYear;
+    private JTextField singleAddArr;
+    private JTextField singleAddSell;
     private JButton singleAddSubmit;
     private JButton FileBrowse;
     private JButton submitButton;
-    private JTextField animalSellList;
     private JButton sellButton;
     private JList animalList;
     private JButton chooseFileDestinationButton;
@@ -58,12 +55,17 @@ public class menu {
     private JButton monthRevSubmit;
     private JLabel dayRevResult;
     private JLabel monthRevResult;
-    DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+    private JButton refreshListButton;
+    private JTextField saleDateEntry;
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
     Date date = new Date();
     FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
-    String[] parameters = new String[7];
+    String[] parameters = new String[8];
     shop petShop = new shop();
+    DefaultListModel <String> listModel;
+    int IDCount = 1;
     public menu() {
+        listUpdater();//calls generation of the lists on load
         JFileChooser fc = new JFileChooser();
         fc.setFileFilter(filter);
         FileBrowse.addActionListener(new ActionListener() {
@@ -85,41 +87,88 @@ public class menu {
                     parameters[3] = "Male";
                 }else parameters[3] = "Female";
                 parameters[4] = singleAddColour.getText();
-                if (singleAddArrDay.getText() != null){
-                parameters[5] = singleAddArrYear.getText() + "-" + singleAddArrMonth.getText() + "-" +
-                        singleAddArrDay.getText();
-                }else{
-                    parameters[5] = df.format(date);
-                }
-                if(singleAddSellDay.getText() != null) {
-                    parameters[6] = singleAddSellYear.getText() + "-" + singleAddSellMonth.getText() + "-" +
-                            singleAddSellDay.getText();
-                }else{
+                if (formatMatcher(singleAddArr.getText()) == true){
+                parameters[5] = singleAddArr.getText();
+                }else{ if(singleAddArr.getText().isEmpty() == true){
+                    parameters[5] = df.format(date);//sets the arrival date to today's date if no input detected
+                }else {
+                    popup("Arrival date is of incorrect format");
+                    return;
+                }}
+                if (formatMatcher(singleAddSell.getText()) == true){
+                    parameters[6] = singleAddSell.getText();
+                }else{ if(singleAddSell.getText().isEmpty() == true){
                     parameters[6] = null;
-                }
+                }else {
+                    popup("Sale date is of incorrect format");
+                    return;
+                }}
+                parameters[7] = Integer.toString(IDCount);
                 petShop.addAnimal(parameters);
+                IDCount += 1;
                 popup("Success");
+            }
+        });
+        refreshListButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listUpdater();//calls for refresh of the list
+            }
+        });
+        sellButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selInd = animalList.getSelectedIndex();
+                if(petShop.animalList.get(selInd).sold == true){
+                    popup("Selected animal is not for sale");
+                }else{if(formatMatcher(saleDateEntry.getText()) == true) {
+                    petShop.animalList.get(selInd).sellingDate = saleDateEntry.getText();
+                    popup("Selected animal marked as sold");
+                    System.out.println(petShop.animalList.get(selInd).getSellingDate());
+                    listUpdater();
+                    }else{popup("Input date must be of YYYY-MM-DD format");}
+                }
+
             }
         });
     }
     //string/array inputs are of form [givenName, commonName, price, sex, colour, arrivalDate, sellingDate]
+    public boolean formatMatcher(String input){
+        String in = input;
+        Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+        boolean result = datePattern.matcher(in).matches();
+        return result;
+    }
+    public void popup(String value){//creates popup dialog where the value arg is the message to be displayed
+        JOptionPane.showMessageDialog(null, value);
+    }
+
+    public void listUpdater(){//generates a list of all animals currently in the shop
+        listModel.clear();//clears any existing entries in the list for repopulation
+        String[] lOut = new String[petShop.animalCount];//create an array where the length is equal to the
+        //number of animals in the shop
+        for(int i=0; i< petShop.animalList.size();i++) {
+                lOut[i] = "Name: " + petShop.animalList.get(i).getGivenName() + " - Common Name: " +
+                        petShop.animalList.get(i).getCommonName() + " - Sex: " + petShop.animalList.get(i).getSex() +
+                        " - Colour: " + petShop.animalList.get(i).getColour() + " - Price: " +
+                        petShop.animalList.get(i).getPrice() + " " + petShop.animalList.get(i).getAnimalID() +
+                        " Sale Status: " + petShop.animalList.get(i).getSellingDate();
+                listModel.addElement(lOut[i]);
+
+            //for each animal in the array, output its information
+        }
+    }
+
+    private void createUIComponents() {
+        listModel = new DefaultListModel<>();
+        animalList = new JList(listModel);
+
+    }
     public static void main(String[] args){
         JFrame frame = new JFrame();
         frame.setContentPane(new menu().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-    }
-    public void popup(String value){//creates popup dialog where the value arg is the message to be displayed
-        JOptionPane.showMessageDialog(null, value);
-    }
-
-    public void listUpdater(){
-        animalList.removeAll();
-        String[] lOut = new String[(petShop.animalCount)];
-        for(int i=0; i< petShop.animalList.size();i++){
-            lOut[i] = petShop.animalList.get(i).getGivenName() + " - " + petShop.animalList.get(i).getCommonName();
-
-        }animalList.setListData(lOut);
     }
 }

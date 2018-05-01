@@ -1,13 +1,18 @@
 package main;
 
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class shop {
     ArrayList<animal> animalList = new ArrayList<>();
     int animalCount = 0;
-
-    public shop(){
-
+    ArrayList<transLog> log = new ArrayList<transLog>();
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+    public shop() {
     }
     void addAnimal(String[] parameters){
         String animalType = parameters[1];
@@ -48,14 +53,29 @@ public class shop {
 
 
         }    //string/array inputs are of form [givenName, commonName, price, sex, colour, arrivalDate, sellingDate]
+    }
+    public Calendar strToDate(String dateIn){
+        //input must be in string format "YYYY-MM-DD"
+        String[] ds = dateIn.split("-");
+        Calendar outDate = Calendar.getInstance();
+        outDate.set(Integer.parseInt(ds[0]),(Integer.parseInt(ds[1])-1),Integer.parseInt(ds[2]));
+        return outDate;
+    }
+    public String dateToStr(Calendar dateIn){
+        String outStr = (df.format(dateIn.getTime()));
+        return outStr;
+    }
+}
+class transLog{
+    BigDecimal price;
+    String SaleDate;
+    public transLog(BigDecimal price, String SaleDate) {
+        this.price = price;
+        this.SaleDate = SaleDate;
+    }
 
-        System.out.println(animalList.get(0).getGivenName() + ", " + animalList.get(0).getCommonName() + ", " +
-                animalList.get(0).getPrice() + ", " + animalList.get(0).getSex() + ", " + animalList.get(0).getColour()
-                + ", " + animalList.get(0).getArrivalDate() + ", " + animalList.get(0).getSellingDate());
-    }
-    private String[] splitter(String parameterString) {
-        return parameterString.split(", ");
-    }
+
+
 }
 
 
