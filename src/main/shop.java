@@ -10,7 +10,6 @@ import java.util.Locale;
 public class shop {
     ArrayList<animal> animalList = new ArrayList<>();
     int animalCount = 0;
-    ArrayList<transLog> log = new ArrayList<transLog>();
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
     public shop() {
     }
@@ -66,17 +65,10 @@ public class shop {
         return outStr;
     }
 }
-class transLog{
-    BigDecimal price;
-    String SaleDate;
-    public transLog(BigDecimal price, String SaleDate) {
-        this.price = price;
-        this.SaleDate = SaleDate;
-    }
 
 
 
-}
+
 
 
 

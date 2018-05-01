@@ -1,4 +1,5 @@
 package main;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ abstract class animal {
     String genus;
     String species;
     int legCount;
-    String price;
+    int price;
     String sex;
     String colour;
     String arrivalDate;
@@ -29,7 +30,7 @@ abstract class animal {
 
         givenName = parList[0];
         commonName = parList[1];
-        price = "£"+parList[2];
+        price = Integer.parseInt(parList[2]);
         sex = parList[3];
         colour = parList[4];
         arrivalDate = parList[5];
@@ -75,6 +76,9 @@ abstract class animal {
     }
 
     public String getPrice() {
+        return Integer.toString(price);
+    }
+    public int getPriceNum(){
         return price;
     }
 
