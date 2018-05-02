@@ -27,7 +27,6 @@ abstract class animal {
 
     //string/array inputs are of form [givenName, commonName, price, sex, colour, arrivalDate, sellingDate]
     private void parseInfo(String[] parList){
-
         givenName = parList[0];
         commonName = parList[1];
         price = Integer.parseInt(parList[2]);
