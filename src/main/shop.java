@@ -108,62 +108,45 @@ public class shop {
         return Integer.toString(finalPrice);
     }
 
-    public ArrayList<String> classLister() {//TODO merge listers into one
+    public ArrayList<String> classLister(int type) {
+        int x = type;
         ArrayList<String> outList = new ArrayList<>();
-        for (int i = 0; i < animalList.size(); i++) {
-            String cl = animalList.get(i).getAClass();
-            if (!(outList.contains(cl))) {
-                outList.add(cl);
-            }
+        switch (x){
+            case 0: for (int i = 0; i < animalList.size(); i++) {
+                String cl = animalList.get(i).getAClass();
+                if (!(outList.contains(cl))) {
+                    outList.add(cl);
+                }}
+                break;
+            case 1: for (int i = 0; i < animalList.size(); i++) {
+                String cl = animalList.get(i).getOrder();
+                if (!(outList.contains(cl))) {
+                    outList.add(cl);
+                }}
+                break;
+            case 2: for (int i = 0; i < animalList.size(); i++) {
+                String cl = animalList.get(i).getFamily();
+                if (!(outList.contains(cl))) {
+                    outList.add(cl);
+                }}
+                break;
+            case 3: for (int i = 0; i < animalList.size(); i++) {
+                String cl = animalList.get(i).getGenus();
+                if (!(outList.contains(cl))) {
+                    outList.add(cl);
+                }}
+                break;
+            case 4: for (int i = 0; i < animalList.size(); i++) {
+                String cl = animalList.get(i).getSpecies();
+                if (!(outList.contains(cl))) {
+                    outList.add(cl);
+                }}
+                break;
         }
         return outList;
     }
 
-    public ArrayList<String> orderLister(String aClass) {
-        ArrayList<String> outList = new ArrayList<>();
-        String Class = aClass;
-        for (int i = 0; i < animalList.size(); i++) {
-            String cl = animalList.get(i).getOrder();
-            if (!(outList.contains(cl)) && animalList.get(i).getAClass() == Class) {
-                outList.add(cl);
-            }
-        }
-        return outList;
-    }
 
-    public ArrayList<String> familyLister(String order) {
-        ArrayList<String> outList = new ArrayList<>();
-        String Order = order;
-        for (int i = 0; i < animalList.size(); i++) {
-            String cl = animalList.get(i).getFamily();
-            if (!(outList.contains(cl)) && animalList.get(i).getOrder() == Order) {
-                outList.add(cl);
-            }
-        }
-        return outList;
-    }
-    public ArrayList<String> genusLister(String family){
-        ArrayList<String> outList = new ArrayList<>();
-        String fam = family;
-        for(int i=0;i<animalList.size();i++){
-            String cl = animalList.get(i).getGenus();
-            if(!(outList.contains(cl)) && animalList.get(i).getFamily() == fam){
-                outList.add(cl);
-            }
-        }
-        return outList;
-    }
-    public ArrayList<String> speciesLister(String genus){
-        ArrayList<String> outList = new ArrayList<>();
-        String gen = genus;
-        for(int i=0;i<animalList.size();i++){
-            String cl = animalList.get(i).getSpecies();
-            if(!(outList.contains(cl))&& animalList.get(i).getGenus() == gen){
-                outList.add(cl);
-            }
-        }
-        return outList;
-    }
 }
 
 

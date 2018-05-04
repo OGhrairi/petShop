@@ -52,7 +52,7 @@ public class menu {
     private JRadioButton talkYes;
     private JRadioButton talkNo;
     private JTextField searchColour;
-    private JList list1;
+    private JList searchList;
     private JTextField dayRevEntry;
     private JButton dailyRevSubmit;
     private JTextField monthRevEntry;
@@ -62,19 +62,20 @@ public class menu {
     private JButton refreshListButton;
     private JTextField saleDateEntry;
     private JTextField legMax;
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
-    Date date = new Date();
-    FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
+    private Date date = new Date();
+    private FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
     String[] parameters = new String[8];
-    shop petShop = new shop();
-    DefaultListModel <String> listModel;
-    DefaultComboBoxModel <String> classModel = new DefaultComboBoxModel<>();
-    DefaultComboBoxModel <String> orderModel = new DefaultComboBoxModel<>();
-    DefaultComboBoxModel <String> familyModel = new DefaultComboBoxModel<>();
-    DefaultComboBoxModel <String> genusModel = new DefaultComboBoxModel<>();
-    DefaultComboBoxModel <String> speciesModel = new DefaultComboBoxModel<>();
-    int IDCount = 1;
-    public menu() {
+    private shop petShop = new shop();
+    private DefaultListModel <String> listModel;
+    private DefaultListModel <String> searchListModel;
+    private DefaultComboBoxModel <String> classModel = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel <String> orderModel = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel <String> familyModel = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel <String> genusModel = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel <String> speciesModel = new DefaultComboBoxModel<>();
+    private int IDCount = 1;
+    menu() {
         searchOrder.setModel(orderModel);
         searchClass.setModel(classModel);
         searchFamily.setModel(familyModel);
@@ -107,7 +108,12 @@ public class menu {
                 TempPrice = singleAddPrice.getText();
                 if(singleAddMale.isSelected()){
                     parameters[3] = "Male";
-                }else parameters[3] = "Female";
+                }else if(singleAddFemale.isSelected()){
+                    parameters[3] = "Female";
+                }else {
+                    popup("Select animal gender");
+                    return;
+                }
                 parameters[4] = singleAddColour.getText();
                 if (dayFormatMatcher(singleAddArr.getText())){
                 parameters[5] = singleAddArr.getText();
@@ -134,7 +140,7 @@ public class menu {
         });
         refreshListButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) { //TODO decided whether this button can be removed
                 listUpdater();//calls for refresh of the list
             }
         });
@@ -195,55 +201,33 @@ public class menu {
                 listUpdater();
             }
         });
-        searchClass.addActionListener(new ActionListener() {//TODO: remove these box actions
+
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                orderModel.removeAllElements();
-                String x = String.valueOf(searchClass.getSelectedItem());
-                ArrayList<String> list = petShop.orderLister(x);
-                for (int i=0; i< list.size();i++){
-                    orderModel.addElement(list.get(i));
+                searchListModel.clear();
+                ArrayList<animal> searchResults = new ArrayList<>(petShop.animalList);
+                if(searchMale.isSelected() || searchFemale.isSelected()){//gender filter
+                    for(int i=0; i<searchResults.size();i++){
+                        if(searchMale.isSelected() && searchResults.get(i).sex != "Male"){
+                            searchResults.remove(i);
+                        }else if(searchFemale.isSelected() && searchResults.get(i).sex != "Female"){
+                            searchResults.remove(i);
+                        }
+                    }
                 }
-                if(String.valueOf(searchClass.getSelectedItem()).equals("Reptilia")){
-                    venomYes.setEnabled(true);
-                    venomNo.setEnabled(true);
-                }else{
-                    venomYes.setEnabled(false);
-                    venomNo.setEnabled(false);
+                if(!givenNameSearch.equals("")){//TODO set up search results 
+                    for (int i=0; i<searchResults.size();i++){
+                        if(!searchResults.get(i).givenName.equals(givenNameSearch)){
+                            searchResults.remove(i);
+                        }
+                    }
                 }
-            }
-        });
-        searchOrder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                familyModel.removeAllElements();
-                String x = String.valueOf(searchOrder.getSelectedItem());
-                ArrayList<String> list = petShop.familyLister(x);
-                for (int i=0; i< list.size();i++){
-                    familyModel.addElement(list.get(i));
-                }
-            }
-        });
-        searchFamily.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                genusModel.removeAllElements();
-                String x = String.valueOf(searchFamily.getSelectedItem());
-                ArrayList<String> list = petShop.genusLister(x);
-                for (int i=0; i< list.size();i++){
-                    genusModel.addElement(list.get(i));
-                }
-            }
-        });
-        searchGenus.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                speciesModel.removeAllElements();
-                String x = String.valueOf(searchGenus.getSelectedItem());
-                ArrayList<String> list = petShop.speciesLister(x);
-                for (int i=0; i< list.size();i++){
-                    speciesModel.addElement(list.get(i));
-                }
+                String[] y = new String[searchResults.size()];
+                for(int i=0; i<y.length;i++){
+                    y[i] = searchResults.get(i).commonName + " - " + searchResults.get(i).givenName;
+                    searchListModel.addElement(y[i]);
+                }System.out.println(petShop.animalList.size());
             }
         });
     }
@@ -266,7 +250,6 @@ public class menu {
 
     public void listUpdater(){//Main function responsible for fetching updated animal list data
         listModel.clear();//clears any existing entries in the list for re-population
-        System.out.println(petShop.animalCount);
         String[] lOut = new String[petShop.animalCount];//create an array where the length is equal to the
         //number of animals in the shop
         for(int i=0; i< petShop.animalList.size();i++) {
@@ -277,15 +260,47 @@ public class menu {
                 listModel.addElement(lOut[i]);
 
             //for each animal in the array, output its information
+        }classListAssigner();
+
+    }
+    public void classListAssigner(){
+        classModel.removeAllElements();
+        classModel.addElement("None");
+        orderModel.removeAllElements();
+        orderModel.addElement("None");
+        familyModel.removeAllElements();
+        familyModel.addElement("None");
+        genusModel.removeAllElements();
+        genusModel.addElement("None");
+        speciesModel.removeAllElements();
+        speciesModel.addElement("None");
+        ArrayList<ArrayList<String>> ls = new ArrayList<>();
+        for(int i =0; i<=4; i++){
+            ls.add(petShop.classLister(i));
         }
-        //TODO handle displaying each part of the classifications for the combo box options in the search pane
+        for(int i=0; i<ls.get(0).size();i++){
+            classModel.addElement(ls.get(0).get(i));
+        }
+        for(int i=0; i<ls.get(1).size();i++){
+            orderModel.addElement(ls.get(1).get(i));
+        }
+        for(int i=0; i<ls.get(2).size();i++){
+            familyModel.addElement(ls.get(2).get(i));
+        }
+        for(int i=0; i<ls.get(3).size();i++){
+            genusModel.addElement(ls.get(3).get(i));
+        }
+        for(int i=0; i<ls.get(4).size();i++){
+            speciesModel.addElement(ls.get(4).get(i));
+        }
 
     }
 
     private void createUIComponents() {
         listModel = new DefaultListModel<>();
         animalList = new JList(listModel);
-
+        searchListModel = new DefaultListModel<>();
+        searchList = new JList(searchListModel);
 
     }
     public static void main(String[] args){
