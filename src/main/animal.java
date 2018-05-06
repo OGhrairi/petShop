@@ -12,13 +12,16 @@ abstract class animal {
     String genus;
     String species;
     int legCount;
-    int price;
+    float price;
     String sex;
     String colour;
     String arrivalDate;
     String sellingDate;
     int animalID;
     boolean sold;
+    boolean isParrot = false;
+    boolean venomous = false;
+    boolean talking = false;
     DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 
     public animal (String[] parameters){
@@ -29,7 +32,7 @@ abstract class animal {
     private void parseInfo(String[] parList){
         givenName = parList[0];
         commonName = parList[1];
-        price = Integer.parseInt(parList[2]);
+        price = Float.parseFloat(parList[2]);
         sex = parList[3];
         colour = parList[4];
         arrivalDate = parList[5];
@@ -75,9 +78,9 @@ abstract class animal {
     }
 
     public String getPrice() {
-        return Integer.toString(price);
+        return Float.toString(price);
     }
-    public int getPriceNum(){
+    public float getPriceNum(){
         return price;
     }
 

@@ -1,5 +1,6 @@
 package main;
 
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -7,13 +8,10 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Pattern;
 
 
@@ -45,7 +43,6 @@ public class menu {
     private JComboBox searchSpecies;
     private JComboBox searchFamily;
     private JButton searchButton;
-    private JTextField commonNameSearch;
     private JRadioButton searchFemale;
     private JRadioButton venomYes;
     private JRadioButton venomNo;
@@ -62,6 +59,7 @@ public class menu {
     private JButton refreshListButton;
     private JTextField saleDateEntry;
     private JTextField legMax;
+    private JComboBox searchComName;
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.UK);
     private Date date = new Date();
     private FileFilter filter = new FileNameExtensionFilter(".txt files","txt");
@@ -74,29 +72,151 @@ public class menu {
     private DefaultComboBoxModel <String> familyModel = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel <String> genusModel = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel <String> speciesModel = new DefaultComboBoxModel<>();
-    private int IDCount = 1;
+    private DefaultComboBoxModel <String> comNameMod = new DefaultComboBoxModel<>();
+    private int IDCount;
+    private File animalFile;
+    private File writeDest;
+    private String dest;
     menu() {
+        IDCount = 1;
         searchOrder.setModel(orderModel);
         searchClass.setModel(classModel);
         searchFamily.setModel(familyModel);
         searchGenus.setModel(genusModel);
         searchSpecies.setModel(speciesModel);
+        searchComName.setModel(comNameMod);
         listUpdater();//calls generation of the lists on load
-        JFileChooser fc = new JFileChooser();
-        fc.setFileFilter(filter);
+        JFileChooser readChooser = new JFileChooser();
+        JFileChooser writeChooser = new JFileChooser();
         FileBrowse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int rVal = fc.showOpenDialog(panel1);
+                readChooser.setFileFilter(filter);
+                readChooser.setAcceptAllFileFilterUsed(false);
+                int rVal = readChooser.showOpenDialog(panel1);
                 if(rVal == JFileChooser.APPROVE_OPTION) {
-                    File animalFile = fc.getSelectedFile();
+                    animalFile = readChooser.getSelectedFile();
+                }
+            }
+        });
+        chooseFileDestinationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                writeChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                writeChooser.setAcceptAllFileFilterUsed(false);
+                int rVal = writeChooser.showOpenDialog(panel1);
+                if(rVal == JFileChooser.APPROVE_OPTION){
+                    writeDest = writeChooser.getSelectedFile();
+                    dest = writeDest.getPath();
+                }
+            }
+        });
+        writeToFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fName;
+                BufferedWriter bw = null;
+                File f1 = new File(dest);
+                f1.mkdirs();
+                if(fileNameEntry.getText().isEmpty()){
+                    popup("File name is empty");
+                    return;
+                }else{
+                    fName = fileNameEntry.getText()+".txt";
+                }
+                File f2 = new File(f1,fName);
+
+                try {
+                    bw = new BufferedWriter(new FileWriter(f2));
+                    ArrayList<animal> lst =  new ArrayList<>(petShop.animalList);
+                    String outStr;
+                    for(int i=0; i<lst.size();i++){
+                        if(lst.get(i).sold) {
+                            outStr = lst.get(i).getGivenName() + ", " + lst.get(i).getCommonName() + ", " +
+                                    lst.get(i).getPrice() + ", " + lst.get(i).getSex() + ", " + lst.get(i).getColour()
+                                    + ", " + lst.get(i).getArrivalDate() + ", " + lst.get(i).getSellingDate();
+                            bw.write(outStr);
+                            bw.newLine();
+                        }
+                    }
+                    for(int j=0; j<lst.size();j++) {
+                        if (!lst.get(j).sold) {
+                            outStr = lst.get(j).getGivenName() + ", " + lst.get(j).getCommonName() + ", " +
+                                    lst.get(j).getPrice() + ", " + lst.get(j).getSex() + ", " + lst.get(j).getColour()
+                                    + ", " + lst.get(j).getArrivalDate();
+                            bw.write(outStr);
+                            bw.newLine();
+                        }
+
+                    }popup("File Successfully Written");
+                }catch(IOException a){
+                    popup("Error");
+                }finally{
+                    try{
+                        if(bw != null){
+                            bw.close();
+                        }
+                    }catch (IOException ee){
+                        popup("Error");
+                    }
+                }
+            }
+        });
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BufferedReader br = null;
+                try{
+                    br = new BufferedReader(new FileReader(animalFile));
+                    String line = null;
+                    while((line = br.readLine()) != null){
+                        String[] input = line.split(", ");
+                        parameters[0] = input[0];
+                        parameters[1] = input[1];
+                        String tempPrice = input[2];
+                        parameters[3] = input[3];
+                        parameters[4] = input[4];
+                        if(input.length>=6){
+                            parameters[5] = input[5];
+                            if(input.length==7){
+                                parameters[6] = input[6];
+                            }else{
+                                parameters[6]=null;
+                            }
+                        }else{
+                            parameters[5]=df.format(date);
+                            parameters[6]=null;
+                        }
+                        parameters[2]=petShop.discount(tempPrice,parameters[5]);
+                        parameters[7] = Integer.toString(IDCount);
+                        IDCount+=1;
+                        petShop.addAnimal(parameters);
+                    }popup("Animals succesfully added");
+                }catch(IOException en){
+                    popup("File Error");
+                }
+                finally{
+                    try{
+                        if(br!=null){
+                            br.close();
+                        }
+                    }catch (IOException ee){
+                        popup("File Error");
+
+                    }
                 }
             }
         });
         singleAddSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parameters[0] = singleAddGivenName.getText();
+                searchListModel.clear();
+                if(!singleAddGivenName.getText().isEmpty()) {
+                    parameters[0] = singleAddGivenName.getText();
+                }else {
+                    popup("Enter given name");
+                    return;
+                }
                 parameters[1] = singleAddCommonName.getSelectedItem().toString();
                 String TempPrice;
                 try {
@@ -107,14 +227,19 @@ public class menu {
                 }
                 TempPrice = singleAddPrice.getText();
                 if(singleAddMale.isSelected()){
-                    parameters[3] = "Male";
+                    parameters[3] = "male";
                 }else if(singleAddFemale.isSelected()){
-                    parameters[3] = "Female";
+                    parameters[3] = "female";
                 }else {
                     popup("Select animal gender");
                     return;
                 }
-                parameters[4] = singleAddColour.getText();
+                if(!singleAddColour.getText().isEmpty()) {
+                    parameters[4] = singleAddColour.getText();
+                }else {
+                    popup("Enter animal Colour");
+                    return;
+                }
                 if (dayFormatMatcher(singleAddArr.getText())){
                 parameters[5] = singleAddArr.getText();
                 }else{ if(singleAddArr.getText().isEmpty()){
@@ -137,13 +262,9 @@ public class menu {
                 IDCount += 1;
                 popup("Success");
             }
+
         });
-        refreshListButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { //TODO decided whether this button can be removed
-                listUpdater();//calls for refresh of the list
-            }
-        });
+
         sellButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,7 +275,6 @@ public class menu {
                     petShop.animalList.get(selInd).sellingDate = saleDateEntry.getText();
                     petShop.animalList.get(selInd).sold = true;
                     popup("Selected animal marked as sold");
-                    System.out.println(petShop.animalList.get(selInd).getSellingDate());
                     listUpdater();
                 } else {
                     popup("Input date must be of YYYY-MM-DD format");
@@ -166,13 +286,14 @@ public class menu {
             public void actionPerformed(ActionEvent e) {
                 if(dayFormatMatcher(dayRevEntry.getText())){
                 Calendar inDate = petShop.strToDate(dayRevEntry.getText());
-                int totalRev = 0;
+                float totalRev = 0;
                 for(int i=0; i<petShop.animalList.size();i++){
                     if(petShop.animalList.get(i).sold &&
                             petShop.strToDate(petShop.animalList.get(i).sellingDate).equals(inDate)){
                         totalRev += petShop.animalList.get(i).getPriceNum();
+
                     }
-                }dayRevResult.setText("£"+Integer.toString(totalRev));
+                }dayRevResult.setText("£"+Float.toString(totalRev));
                 }
             }
         });
@@ -181,16 +302,17 @@ public class menu {
             public void actionPerformed(ActionEvent e) {
                 if(monthFormatMatcher(monthRevEntry.getText())){
                     String[] Mon = monthRevEntry.getText().split("-");
-                    int totalRev=0;
+                    float totalRev=0;
                     String[] petMon;
                     for(int i=0;i<petShop.animalList.size();i++){
                         if(petShop.animalList.get(i).sold) {
                             petMon = petShop.animalList.get(i).sellingDate.split("-");
                             if (Mon[0].equals(petMon[0]) && Mon[1].equals(petMon[1])) {
                                 totalRev += petShop.animalList.get(i).getPriceNum();
+
                             }
                         }
-                    }monthRevResult.setText("£"+Integer.toString(totalRev));
+                    }monthRevResult.setText("£"+Float.toString(totalRev));
 
                 }
             }
@@ -204,32 +326,134 @@ public class menu {
 
         searchButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {//TODO fix searcher
                 searchListModel.clear();
                 ArrayList<animal> searchResults = new ArrayList<>(petShop.animalList);
-                if(searchMale.isSelected() || searchFemale.isSelected()){//gender filter
-                    for(int i=0; i<searchResults.size();i++){
-                        if(searchMale.isSelected() && searchResults.get(i).sex != "Male"){
+                //gender filter
+                if(searchMale.isSelected()) {
+                    for (int i = 0; i < searchResults.size(); i++) {
+                        if (!searchResults.get(i).getSex().equals("male")) {
                             searchResults.remove(i);
-                        }else if(searchFemale.isSelected() && searchResults.get(i).sex != "Female"){
+                        }
+                    }
+                }if(searchFemale.isSelected()) {
+                    for(int i = 0; i < searchResults.size(); i++){
+                        if(!searchResults.get(i).getSex().equals("female")){
                             searchResults.remove(i);
                         }
                     }
                 }
-                if(!givenNameSearch.equals("")){//TODO set up search results 
+                //given name filter - will accept name substring inputs
+                if(!givenNameSearch.getText().isEmpty()){
                     for (int i=0; i<searchResults.size();i++){
-                        if(!searchResults.get(i).givenName.equals(givenNameSearch)){
+                        if(!(searchResults.get(i).givenName.toLowerCase().contains(
+                                givenNameSearch.getText().toLowerCase()))){
                             searchResults.remove(i);
                         }
                     }
                 }
+                //common name filter
+                if(searchComName.getSelectedIndex()!=0){
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!(searchResults.get(i).commonName.equals(searchComName.getSelectedItem().toString()))){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                //colour filter - will only match exact colour inputs, no substrings
+                if(!searchColour.getText().isEmpty()){
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!(searchResults.get(i).colour.toLowerCase().equals(searchColour.getText().toLowerCase()))){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                //classification filters
+                if(searchClass.getSelectedIndex()!=0){
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!(searchResults.get(i).getAClass().equals(searchClass.getSelectedItem().toString()))){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                if(searchOrder.getSelectedIndex()!=0){
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!(searchResults.get(i).getOrder().equals(searchOrder.getSelectedItem().toString()))){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                if(searchFamily.getSelectedIndex()!=0){
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!(searchResults.get(i).getFamily().equals(searchFamily.getSelectedItem().toString()))){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                if(searchGenus.getSelectedIndex()!=0){
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!(searchResults.get(i).getGenus().equals(searchGenus.getSelectedItem().toString()))){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                if(searchSpecies.getSelectedIndex()!=0){
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!(searchResults.get(i).getSpecies().equals(searchSpecies.getSelectedItem().toString()))){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                //leg count filter
+                if(!legMin.getText().isEmpty() || !legMax.getText().isEmpty()){
+                    if(!legMin.getText().isEmpty() && !legMax.getText().isEmpty()){
+                        for(int i=0; i<searchResults.size();i++){
+                            if(!(searchResults.get(i).getLegCount()>= Integer.parseInt(legMin.getText())&&
+                            searchResults.get(i).getLegCount()<= Integer.parseInt(legMax.getText()))){
+                                searchResults.remove(i);
+                            }
+                        }
+                    }else if(!legMin.getText().isEmpty()){
+                        for(int i=0; i<searchResults.size();i++){
+                            if(!(searchResults.get(i).getLegCount()>= Integer.parseInt(legMin.getText()))){
+                                searchResults.remove(i);
+                            }
+                        }
+                    }else if(!legMax.getText().isEmpty()) {
+                        for (int i = 0; i < searchResults.size(); i++) {
+                            if (!(searchResults.get(i).getLegCount() <= Integer.parseInt(legMax.getText()))) {
+                                searchResults.remove(i);
+                            }
+                        }
+                    }
+                }
+                //venom filter
+                if(venomYes.isSelected()) {
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(!searchResults.get(i).venomous){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                if(venomNo.isSelected()) {
+                    for(int i=0; i<searchResults.size(); i++){
+                        if(searchResults.get(i).venomous){
+                            searchResults.remove(i);
+                        }
+                    }
+                }
+                //output list
                 String[] y = new String[searchResults.size()];
                 for(int i=0; i<y.length;i++){
-                    y[i] = searchResults.get(i).commonName + " - " + searchResults.get(i).givenName;
+                    y[i] = searchResults.get(i).getCommonName() + " - " + searchResults.get(i).getGivenName() + " - "+
+                    searchResults.get(i).getSex();
                     searchListModel.addElement(y[i]);
-                }System.out.println(petShop.animalList.size());
+                }
             }
         });
+
+
+
     }
     //string/array inputs are of form [givenName, commonName, price, sex, colour, arrivalDate, sellingDate]
     public boolean dayFormatMatcher(String input){
@@ -265,17 +489,19 @@ public class menu {
     }
     public void classListAssigner(){
         classModel.removeAllElements();
-        classModel.addElement("None");
+        classModel.addElement("-");
         orderModel.removeAllElements();
-        orderModel.addElement("None");
+        orderModel.addElement("-");
         familyModel.removeAllElements();
-        familyModel.addElement("None");
+        familyModel.addElement("-");
         genusModel.removeAllElements();
-        genusModel.addElement("None");
+        genusModel.addElement("-");
         speciesModel.removeAllElements();
-        speciesModel.addElement("None");
+        speciesModel.addElement("-");
+        comNameMod.removeAllElements();
+        comNameMod.addElement("-");
         ArrayList<ArrayList<String>> ls = new ArrayList<>();
-        for(int i =0; i<=4; i++){
+        for(int i =0; i<=5; i++){
             ls.add(petShop.classLister(i));
         }
         for(int i=0; i<ls.get(0).size();i++){
@@ -293,6 +519,9 @@ public class menu {
         for(int i=0; i<ls.get(4).size();i++){
             speciesModel.addElement(ls.get(4).get(i));
         }
+        for(int i=0; i<ls.get(5).size(); i++){
+            comNameMod.addElement(ls.get(5).get(i));
+        }
 
     }
 
@@ -303,6 +532,7 @@ public class menu {
         searchList = new JList(searchListModel);
 
     }
+
     public static void main(String[] args){
         JFrame frame = new JFrame();
         frame.setContentPane(new menu().panel1);

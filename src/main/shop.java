@@ -87,25 +87,43 @@ public class shop {
         return outStr;
     }
 
-    public String discount(String price, String arrDate) {
+    public String discount(String price, String arrDate) {//calculates the price of an animal that's entered into the
+        //system based on their arrival date and the discount brackets
         int arrMonth = Integer.parseInt((arrDate.split("-"))[1]);
         int arrDay = Integer.parseInt((arrDate.split("-")[2]));
+        int arrYear = Integer.parseInt((arrDate.split("-")[0]));
         Calendar cal = Calendar.getInstance();
         Date today = new Date();
         cal.setTime(today);
-        int CurrentMonth = cal.get(Calendar.MONTH) + 1;
-        int CurrentDay = cal.get(Calendar.DAY_OF_MONTH);
-        int mon = CurrentMonth - arrMonth;
-        int initPrice = Integer.parseInt(price);
-        int finalPrice;
-        if ((mon < 2) || (mon == 2 && arrDay > CurrentDay)) {
-            finalPrice = initPrice;
-        } else if ((mon < 4) || (mon == 4 && arrDay > CurrentDay)) {
-            finalPrice = (int) (initPrice * 0.9);
-        } else {
-            finalPrice = (int) (initPrice * 0.8);
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
+        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        int currentYear = cal.get(Calendar.YEAR);
+        float initPrice = Float.parseFloat(price);
+        double finalPrice;
+        if(arrYear < (currentYear-1)){//if the year is at least two out, max discount applied
+            finalPrice = Math.floor(initPrice * 0.8 * 100)/100;
+        }else if(arrYear == (currentYear-1)){//handles crossover between years
+            int b =currentMonth + (12 - arrMonth);//calculate difference in months between years, i.e.
+            //feb 2018 compared to nov 2017 would be 2 + (12 - 11) = 3 months
+            if((b < 2) || b == 2 && arrDay > currentDay){
+                finalPrice = Math.floor(initPrice * 100)/100;
+            }else if((b < 4) || (b == 4 && arrDay > currentDay)){
+                finalPrice = Math.floor(initPrice * 0.9 * 100) / 100;
+            }else{
+                finalPrice = Math.floor(initPrice * 0.8 * 100) / 100;
+            }
         }
-        return Integer.toString(finalPrice);
+        else {
+            int mon = currentMonth - arrMonth;
+            if ((mon < 2) || (mon == 2 && arrDay > currentDay)) {
+                finalPrice = Math.floor(initPrice*100)/100;
+            } else if ((mon < 4) || (mon == 4 && arrDay > currentDay)) {
+                finalPrice = Math.floor(initPrice * 0.9 * 100) / 100;
+            } else {
+                finalPrice = Math.floor(initPrice * 0.8 * 100) / 100;
+            }
+        }
+        return Double.toString(finalPrice);
     }
 
     public ArrayList<String> classLister(int type) {
@@ -142,6 +160,12 @@ public class shop {
                     outList.add(cl);
                 }}
                 break;
+            case 5: for (int i = 0; i < animalList.size(); i++){
+                String c1 = animalList.get(i).getCommonName();
+                if(!(outList.contains(c1))) {
+                    outList.add(c1);
+                }
+            }
         }
         return outList;
     }
