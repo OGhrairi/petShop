@@ -164,8 +164,15 @@ public class shop {
                 String c1 = animalList.get(i).getCommonName();
                 if(!(outList.contains(c1))) {
                     outList.add(c1);
-                }
-            }
+                }}
+                break;
+            case 6: for (int i = 0; i< animalList.size(); i++){
+                String c1 = animalList.get(i).getColour();
+                if(!(outList.contains(c1))) {
+                    outList.add(c1);
+                }}
+                break;
+
         }
         return outList;
     }

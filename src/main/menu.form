@@ -5,7 +5,9 @@
     <constraints>
       <xy x="1848" y="100" width="1458" height="452"/>
     </constraints>
-    <properties/>
+    <properties>
+      <preferredSize width="1036" height="500"/>
+    </properties>
     <border type="none"/>
     <children>
       <tabbedpane id="38df6" binding="tabs">
@@ -242,7 +244,7 @@
               </component>
             </children>
           </grid>
-          <grid id="4a52c" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="4a52c" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Sell Animal"/>
@@ -252,17 +254,19 @@
             <children>
               <component id="79400" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="175" height="16"/>
                   </grid>
                 </constraints>
                 <properties>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
                   <text value="Select Animal"/>
                 </properties>
               </component>
               <component id="35c91" class="javax.swing.JButton" binding="sellButton" default-binding="true">
                 <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="100" height="32"/>
                   </grid>
                 </constraints>
@@ -270,17 +274,9 @@
                   <text value="Sell"/>
                 </properties>
               </component>
-              <component id="bcaa0" class="javax.swing.JButton" binding="refreshListButton" default-binding="true">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Refresh List"/>
-                </properties>
-              </component>
               <component id="d6c8a" class="javax.swing.JList" binding="animalList" custom-create="true">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
@@ -288,7 +284,7 @@
               </component>
               <component id="b10ce" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Enter Sale Date"/>
@@ -296,7 +292,7 @@
               </component>
               <component id="e5069" class="javax.swing.JTextField" binding="saleDateEntry">
                 <constraints>
-                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="70" height="-1"/>
                   </grid>
                 </constraints>
@@ -449,20 +445,13 @@
                   <text value="Talking"/>
                 </properties>
               </component>
-              <component id="1841d" class="javax.swing.JTextField" binding="searchColour">
-                <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="-1"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
               <component id="75dc4" class="javax.swing.JRadioButton" binding="searchMale">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <selected value="true"/>
+                  <enabled value="true"/>
+                  <selected value="false"/>
                   <text value="Male"/>
                 </properties>
               </component>
@@ -489,7 +478,7 @@
                 </constraints>
                 <properties>
                   <enabled value="true"/>
-                  <selected value="true"/>
+                  <selected value="false"/>
                   <text value="No"/>
                 </properties>
               </component>
@@ -508,7 +497,7 @@
                 </constraints>
                 <properties>
                   <enabled value="true"/>
-                  <selected value="true"/>
+                  <selected value="false"/>
                   <text value="No"/>
                 </properties>
               </component>
@@ -616,6 +605,20 @@
                 </constraints>
                 <properties/>
               </component>
+              <component id="d0c41" class="javax.swing.JComboBox" binding="searchColour">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="b2e1b" class="javax.swing.JButton" binding="resetButton">
+                <constraints>
+                  <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Reset Filters"/>
+                </properties>
+              </component>
             </children>
           </grid>
           <grid id="b5c05" layout-manager="GridLayoutManager" row-count="4" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -644,7 +647,7 @@
               </component>
               <component id="88ada" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="1" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Enter Date"/>
@@ -733,15 +736,15 @@
       <member id="e6cf0"/>
       <member id="d9801"/>
     </group>
-    <group name="venomous">
+    <group name="venomous" bound="true">
       <member id="bc8e"/>
       <member id="77a28"/>
     </group>
-    <group name="talking">
+    <group name="talking" bound="true">
       <member id="a28ba"/>
       <member id="bccba"/>
     </group>
-    <group name="sexSearch">
+    <group name="sexSearch" bound="true">
       <member id="75dc4"/>
       <member id="66c3f"/>
     </group>

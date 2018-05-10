@@ -19,9 +19,8 @@ abstract class animal {
     String sellingDate;
     int animalID;
     boolean sold;
-    boolean isParrot = false;
-    boolean venomous = false;
-    boolean talking = false;
+    boolean talking;
+    boolean venomous;
     DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 
     public animal (String[] parameters){
@@ -34,7 +33,7 @@ abstract class animal {
         commonName = parList[1];
         price = Float.parseFloat(parList[2]);
         sex = parList[3];
-        colour = parList[4];
+        colour = parList[4].toLowerCase();
         arrivalDate = parList[5];
         if (parList[6] != null){
             sellingDate = parList[6];
